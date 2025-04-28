@@ -1,1 +1,37 @@
-build
+resources:
+ repositories:
+     - repository: self
+       type: git
+       ref: main
+trigger:
+    branches:
+     include:
+        - master
+
+variables:
+        containerregistrysericeconn: ''
+        imagesorcereposiroty: ''
+        dockerfilepath: '$(Build.sourcedirectory)/Dockerfile'
+        tags: '$(Build.buildid)'
+
+
+pool: 
+  vmImageName: 'ubuntu-latest'
+
+stages:
+    - stage: checkout source code
+      jobs:
+          - job: checkout-job
+            steps:
+            - checkout: self
+
+    - stage: Build image
+      dependsOn: 'checkout source code'
+      jobs:
+          - job: Build-image
+            steps:
+            - 
+        
+
+
+
